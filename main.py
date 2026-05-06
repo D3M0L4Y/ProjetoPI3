@@ -1,36 +1,32 @@
 import os
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware # <-- Linha nova aqui
+from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 import pandas as pd
 from sqlalchemy import create_engine
 
+# 1. Tenta carregar o .env (funciona no seu PC)
 load_dotenv()
 
-app = FastAPI(title="API Imobiliária Estrela")
+# 2. Pega a URL (Prioriza o que estiver no painel do Render)
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
-# --- CONFIGURAÇÃO DE CORS (NOVO) ---
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"], # Permite que qualquer site consuma a API
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-# -----------------------------------
-
-# Tenta pegar a variável do Render, se não existir, tenta o .env local
-DATABASE_URL = os.getenv("DATABASE_URL")
-
+# Se a URL vier vazia, o código para aqui com um aviso claro
 if not DATABASE_URL:
-    raise ValueError("A variável DATABASE_URL não foi encontrada!")
+    print("ERRO CRÍTICO: DATABASE_URL não encontrada nas variáveis de ambiente!")
+    # Apenas para teste local se tudo falhar, você pode colocar a string direta aqui, 
+    # mas o ideal é que o Render forneça.
+    raise ValueError("DATABASE_URL is missing!")
 
-# O SQLAlchemy moderno às vezes exige que o início seja 'postgresql://' 
-# e o Render/Heroku às vezes envia 'postgres://'. Vamos garantir:
+# 3. Ajuste de compatibilidade (O Render às vezes usa postgres:// e o SQLAlchemy exige postgresql://)
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
+# 4. Criar o motor do banco
 engine = create_engine(DATABASE_URL)
+
+app = FastAPI(title="API Imobiliária Estrela")
+# ... resto do código (CORS e Rotas)
 # ... (O resto do código das rotas continua igual para baixo)
 
 @app.get("/")
