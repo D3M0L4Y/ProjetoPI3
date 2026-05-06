@@ -26,6 +26,14 @@ if DATABASE_URL.startswith("postgres://"):
 engine = create_engine(DATABASE_URL)
 
 app = FastAPI(title="API Imobiliária Estrela")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # O asterisco permite que qualquer site (incluindo o GitHub) acesse sua API
+    allow_credentials=True,
+    allow_methods=["*"], # Permite GET, POST, etc.
+    allow_headers=["*"], # Permite todos os cabeçalhos
+)
 # ... resto do código (CORS e Rotas)
 # ... (O resto do código das rotas continua igual para baixo)
 
