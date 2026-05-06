@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imobiliária Estrela & MC</title>
+    <style>
+        :root {
+            --bg-color: #f4f4f9;
+            --text-color: #333333;
+            --header-bg: #ffffff;
+            --primary-color: #0056b3;
+            --card-bg: #ffffff;
+            --border-color: #dddddd;
+        }
+
+        body.alto-contraste {
+            --bg-color: #000000;
+            --text-color: #ffff00;
+            --header-bg: #1a1a1a;
+            --primary-color: #ffff00;
+            --card-bg: #000000;
+            --border-color: #ffff00;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; transition: 0.3s; }
+        body { background-color: var(--bg-color); color: var(--text-color); }
+        header { background-color: var(--header-bg); padding: 20px 50px; display: flex; justify-content: space-between; border-bottom: 2px solid var(--border-color); }
+        .btn-contraste { background-color: var(--primary-color); color: var(--header-bg); border: 2px solid var(--primary-color); padding: 8px 16px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+        main { padding: 50px; max-width: 1200px; margin: 0 auto; }
+        
+        .imoveis-grid { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
+        .card { background-color: var(--card-bg); border: 2px solid var(--border-color); border-radius: 8px; padding: 20px; width: 300px; text-align: center; }
+        .preco { font-size: 20px; color: var(--primary-color); font-weight: bold; margin: 15px 0; }
+        .loading { text-align: center; font-size: 18px; margin-top: 50px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 style="color: var(--primary-color);">Estrela & MC</h1>
+        <button class="btn-contraste" onclick="toggleContraste()" aria-label="Alternar modo de alto contraste">🌓 Alto Contraste</button>
+    </header>
+
+    <main>
+        <h2 style="text-align: center;">Nossos Imóveis (Dados Reais da API)</h2>
+        <div id="loading" class="loading">Carregando imóveis do banco de dados...</div>
+        <section id="imoveis-grid" class="imoveis-grid"></section>
+    </main>
+
+    <!-- VLibras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+
+    <script>
+        // Função do Alto Contraste
+        function toggleContraste() {
+            document.body.classList.toggle('alto-contraste');
+        }
+
+        // Função Mágica que consome a API do Python
+        async function carregarImoveis() {
+            try {
+                // Chama a API que está rodando no seu computador
+                const resposta = await fetch('http://127.0.0.1:8000/imoveis');
+                const imoveis = await resposta.json();
+                
+                const grid = document.getElementById('imoveis-grid');
+                document.getElementById('loading').style.display = 'none';
+
+                // Cria um "card" para cada imóvel que veio do banco de dados
+                imoveis.forEach(imovel => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <h3>${imovel.titulo}</h3>
+                        <p style="font-size: 12px; margin-top: 5px;">📍 ${imovel.cidade} - 🛏️ ${imovel.quartos} Quartos</p>
+                        <p style="margin-top: 10px; font-size: 14px;">${imovel.descricao}</p>
+                        <p class="preco">R$ ${imovel.preco.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                    `;
+                    grid.appendChild(card);
+                });
+            } catch (erro) {
+                console.error("Erro ao buscar imóveis:", erro);
+                document.getElementById('loading').innerText = "Erro ao carregar a API. O back-end em Python está rodando?";
+            }
+        }
+
+        // Executa a função assim que a página abre
+        carregarImoveis();
+    </script>
+</body>
+</html>
