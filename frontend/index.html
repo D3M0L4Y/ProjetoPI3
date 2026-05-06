@@ -66,7 +66,7 @@
         async function carregarImoveis() {
             try {
                 // Chama a API que está rodando no seu computador
-                const resposta = await fetch('http://127.0.0.1:8000/imoveis');
+                const resposta = await fetch('https://api-imobiliaria-victor.onrender.com/imoveis');
                 const imoveis = await resposta.json();
                 
                 const grid = document.getElementById('imoveis-grid');
