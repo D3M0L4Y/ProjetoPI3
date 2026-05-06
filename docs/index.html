@@ -5,93 +5,135 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Imobiliária Estrela & MC</title>
     <style>
-       :root {
-    /* Cores extraídas do site original */
-    --cor-primaria-vermelho: #E2231A; /* Vermelho principal dos botões e logo */
-    --cor-secundaria-azul: #003366;   /* Azul escuro do cabeçalho */
-    --cor-fundo-claro: #F8F9FA;      /* Cinza bem claro para o fundo */
-    --cor-texto-escuro: #333333;
-}
+        /* Variáveis de Cores e Identidade Visual */
+        :root {
+            --cor-primaria-vermelho: #E2231A; 
+            --cor-secundaria-azul: #003366;   
+            --cor-fundo-claro: #F8F9FA;      
+            --cor-texto-escuro: #333333;
+            --cor-card-bg: #ffffff;
+            --cor-borda: #dddddd;
+        }
 
-body {
-    background-color: var(--cor-fundo-claro);
-    color: var(--cor-texto-escuro);
-    font-family: 'Arial', sans-serif;
-}
+        /* Estilos do Modo Alto Contraste */
+        body.alto-contraste {
+            --cor-fundo-claro: #000000;
+            --cor-texto-escuro: #ffffff;
+            --cor-card-bg: #222222;
+            --cor-borda: #ffff00;
+            --cor-secundaria-azul: #000000;
+            --cor-primaria-vermelho: #ffff00;
+        }
 
-/* Cabeçalho igual ao site original */
-<header style="background-color: #003366; padding: 20px; text-align: center; border-bottom: 5px solid #E2231A;">
-    <!-- Link direto para o logo do site original -->
-    <img src="https://www.estrelamcimoveis.com.br/images/logo.png" 
-         alt="Logo Estrela & MC Imóveis" 
-         style="max-height: 80px; width: auto; margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto;">
-    
-    <h1 style="color: white; margin: 0; font-family: Arial, sans-serif;">Sistema de Gestão Imobiliária</h1>
-</header>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Arial', sans-serif; 
+            transition: background-color 0.3s, color 0.3s; 
+        }
 
-/* Botões de Ação (Ver Imóveis, Enviar) */
-.btn-principal, button, a[style*="background-color: #007bff"] {
-    background-color: var(--cor-primaria-vermelho) !important;
-    color: white !important;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: 0.3s;
-}
+        body { 
+            background-color: var(--cor-fundo-claro); 
+            color: var(--cor-texto-escuro); 
+        }
 
-.btn-principal:hover {
-    background-color: #b31b14 !important; /* Vermelho um pouco mais escuro no hover */
-}
+        /* Cabeçalho Original Estrela & MC */
+        header { 
+            background-color: var(--cor-secundaria-azul) !important; 
+            padding: 20px 50px; 
+            display: flex; 
+            align-items: center;
+            justify-content: space-between; 
+            border-bottom: 5px solid var(--cor-primaria-vermelho); 
+            flex-wrap: wrap;
+        }
 
-/* Cards de Imóveis */
-.card {
-    border-top: 3px solid var(--cor-secundaria-azul);
-}
+        .logo-container {
+            text-align: center;
+            flex-grow: 1;
+        }
 
-.card-preco {
-    color: var(--cor-primaria-vermelho);
-    font-weight: bold;
-    font-size: 1.2rem;
-}
+        .btn-contraste { 
+            background-color: var(--cor-primaria-vermelho); 
+            color: #ffffff; 
+            border: 2px solid #ffffff; 
+            padding: 8px 16px; 
+            cursor: pointer; 
+            border-radius: 5px; 
+            font-weight: bold; 
+        }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; transition: 0.3s; }
-        body { background-color: var(--bg-color); color: var(--text-color); }
-        header { background-color: var(--header-bg); padding: 20px 50px; display: flex; justify-content: space-between; border-bottom: 2px solid var(--border-color); }
-        .btn-contraste { background-color: var(--primary-color); color: var(--header-bg); border: 2px solid var(--primary-color); padding: 8px 16px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+        .btn-contraste:hover {
+            background-color: #ffffff;
+            color: var(--cor-primaria-vermelho);
+        }
+
         main { padding: 50px; max-width: 1200px; margin: 0 auto; }
         
         .imoveis-grid { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
-        .card { background-color: var(--card-bg); border: 2px solid var(--border-color); border-radius: 8px; padding: 20px; width: 300px; text-align: center; }
-        .preco { font-size: 20px; color: var(--primary-color); font-weight: bold; margin: 15px 0; }
+        
+        .card { 
+            background-color: var(--cor-card-bg); 
+            border-top: 4px solid var(--cor-secundaria-azul); 
+            border-radius: 8px; 
+            padding: 20px; 
+            width: 300px; 
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .preco { font-size: 20px; color: var(--cor-primaria-vermelho); font-weight: bold; margin: 15px 0; }
         .loading { text-align: center; font-size: 18px; margin-top: 50px; }
+        
+        /* Botões de Ação */
+        .btn-principal {
+            padding: 10px 20px; 
+            color: white !important; 
+            text-decoration: none; 
+            border-radius: 5px; 
+            margin: 10px; 
+            display: inline-block;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Cabeçalho Corrigido -->
     <header>
-        <h1 style="color: var(--primary-color);">Estrela & MC</h1>
+        <div style="width: 150px;"></div> <!-- Espaçador para manter o logo centralizado -->
+        
+        <div class="logo-container">
+            <img src="https://www.estrelamcimoveis.com.br/images/logo.png" 
+                 alt="Logo Estrela & MC Imóveis" 
+                 style="max-height: 70px; width: auto; margin-bottom: 10px;">
+            <h1 style="color: white; margin: 0; font-size: 22px;">Sistema de Gestão Imobiliária</h1>
+        </div>
+
         <button class="btn-contraste" onclick="toggleContraste()" aria-label="Alternar modo de alto contraste">🌓 Alto Contraste</button>
     </header>
 
     <!-- Seção de Navegação e Guia -->
-<section style="text-align: center; padding: 20px; background-color: #f4f4f4; border-radius: 8px; margin: 20px;">
-    <h2>Explorar Sistema</h2>
-    <div style="margin-bottom: 20px;">
-        <a href="imoveis.html" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; margin: 10px; display: inline-block;">Ver Imóveis</a>
-        <a href="https://api-imobiliaria-victor.onrender.com/analise" target="_blank" style="padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; margin: 10px; display: inline-block;">Ver Análise de Dados (JSON)</a>
-    </div>
+    <section style="text-align: center; padding: 20px; background-color: var(--cor-card-bg); border-radius: 8px; margin: 20px; border: 1px solid var(--cor-borda);">
+        <h2>Explorar Sistema</h2>
+        <div style="margin-bottom: 20px;">
+            <a href="https://d3m0l4y.github.io/ProjetoPI3/" class="btn-principal" style="background-color: var(--cor-secundaria-azul);">Recarregar Imóveis</a>
+            <a href="https://api-imobiliaria-victor.onrender.com/analise" target="_blank" class="btn-principal" style="background-color: var(--cor-primaria-vermelho);">Ver Análise de Dados (JSON)</a>
+        </div>
 
-    <div style="text-align: left; max-width: 600px; margin: 0 auto; line-height: 1.6;">
-        <h3>Como utilizar este portal:</h3>
-        <ol>
-            <li><strong>Navegação:</strong> Utilize o botão azul para visualizar os cards de imóveis cadastrados no <strong>Supabase</strong>.</li>
-            <li><strong>Análise em Tempo Real:</strong> O botão verde abre a rota de inteligência da API, onde o <strong>Pandas</strong> calcula médias e distribuições automaticamente.</li>
-            <li><strong>Acessibilidade:</strong> Utilize o menu lateral para ativar o modo de Alto Contraste ou o VLibras para tradução em libras.</li>
-        </ol>
-    </div>
-</section>
+        <div style="text-align: left; max-width: 600px; margin: 0 auto; line-height: 1.6;">
+            <h3>Como utilizar este portal:</h3>
+            <ol style="margin-top: 10px; margin-left: 20px;">
+                <li><strong>Navegação:</strong> Visualize abaixo os cards de imóveis consumidos dinamicamente da API.</li>
+                <li><strong>Análise em Tempo Real:</strong> O botão vermelho abre a rota de inteligência da API, onde o <strong>Pandas</strong> calcula médias e distribuições.</li>
+                <li><strong>Acessibilidade:</strong> Utilize o botão no cabeçalho para ativar o modo de Alto Contraste ou o menu lateral para o VLibras.</li>
+            </ol>
+        </div>
+    </section>
 
     <main>
-        <h2 style="text-align: center;">Nossos Imóveis (Dados Reais da API)</h2>
+        <h2 style="text-align: center; margin-bottom: 20px;">Nossos Imóveis (Dados da API)</h2>
         <div id="loading" class="loading">Carregando imóveis do banco de dados...</div>
         <section id="imoveis-grid" class="imoveis-grid"></section>
     </main>
@@ -110,23 +152,21 @@ body {
             document.body.classList.toggle('alto-contraste');
         }
 
-        // Função Mágica que consome a API do Python
+        // Função que consome a API do Python no Render
         async function carregarImoveis() {
             try {
-                // Chama a API que está rodando no seu computador
                 const resposta = await fetch('https://api-imobiliaria-victor.onrender.com/imoveis');
                 const imoveis = await resposta.json();
                 
                 const grid = document.getElementById('imoveis-grid');
                 document.getElementById('loading').style.display = 'none';
 
-                // Cria um "card" para cada imóvel que veio do banco de dados
                 imoveis.forEach(imovel => {
                     const card = document.createElement('div');
                     card.className = 'card';
                     card.innerHTML = `
-                        <h3>${imovel.titulo}</h3>
-                        <p style="font-size: 12px; margin-top: 5px;">📍 ${imovel.cidade} - 🛏️ ${imovel.quartos} Quartos</p>
+                        <h3 style="color: var(--cor-secundaria-azul);">${imovel.titulo}</h3>
+                        <p style="font-size: 13px; margin-top: 5px; font-weight: bold;">📍 ${imovel.cidade} - 🛏️ ${imovel.quartos} Quartos</p>
                         <p style="margin-top: 10px; font-size: 14px;">${imovel.descricao}</p>
                         <p class="preco">R$ ${imovel.preco.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
                     `;
@@ -138,7 +178,6 @@ body {
             }
         }
 
-        // Executa a função assim que a página abre
         carregarImoveis();
     </script>
 </body>
