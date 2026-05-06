@@ -19,9 +19,18 @@ app.add_middleware(
 )
 # -----------------------------------
 
+# Tenta pegar a variável do Render, se não existir, tenta o .env local
 DATABASE_URL = os.getenv("DATABASE_URL")
-engine = create_engine(DATABASE_URL)
 
+if not DATABASE_URL:
+    raise ValueError("A variável DATABASE_URL não foi encontrada!")
+
+# O SQLAlchemy moderno às vezes exige que o início seja 'postgresql://' 
+# e o Render/Heroku às vezes envia 'postgres://'. Vamos garantir:
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+engine = create_engine(DATABASE_URL)
 # ... (O resto do código das rotas continua igual para baixo)
 
 @app.get("/")
