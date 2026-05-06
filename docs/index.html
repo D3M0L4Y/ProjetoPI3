@@ -5,23 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Imobiliária Estrela & MC</title>
     <style>
-        :root {
-            --bg-color: #f4f4f9;
-            --text-color: #333333;
-            --header-bg: #ffffff;
-            --primary-color: #0056b3;
-            --card-bg: #ffffff;
-            --border-color: #dddddd;
-        }
+       :root {
+    /* Cores extraídas do site original */
+    --cor-primaria-vermelho: #E2231A; /* Vermelho principal dos botões e logo */
+    --cor-secundaria-azul: #003366;   /* Azul escuro do cabeçalho */
+    --cor-fundo-claro: #F8F9FA;      /* Cinza bem claro para o fundo */
+    --cor-texto-escuro: #333333;
+}
 
-        body.alto-contraste {
-            --bg-color: #000000;
-            --text-color: #ffff00;
-            --header-bg: #1a1a1a;
-            --primary-color: #ffff00;
-            --card-bg: #000000;
-            --border-color: #ffff00;
-        }
+body {
+    background-color: var(--cor-fundo-claro);
+    color: var(--cor-texto-escuro);
+    font-family: 'Arial', sans-serif;
+}
+
+/* Cabeçalho igual ao site original */
+<header style="background-color: #003366; padding: 20px; text-align: center; border-bottom: 5px solid #E2231A;">
+    <!-- Link direto para o logo do site original -->
+    <img src="https://www.estrelamcimoveis.com.br/images/logo.png" 
+         alt="Logo Estrela & MC Imóveis" 
+         style="max-height: 80px; width: auto; margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto;">
+    
+    <h1 style="color: white; margin: 0; font-family: Arial, sans-serif;">Sistema de Gestão Imobiliária</h1>
+</header>
+
+/* Botões de Ação (Ver Imóveis, Enviar) */
+.btn-principal, button, a[style*="background-color: #007bff"] {
+    background-color: var(--cor-primaria-vermelho) !important;
+    color: white !important;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.btn-principal:hover {
+    background-color: #b31b14 !important; /* Vermelho um pouco mais escuro no hover */
+}
+
+/* Cards de Imóveis */
+.card {
+    border-top: 3px solid var(--cor-secundaria-azul);
+}
+
+.card-preco {
+    color: var(--cor-primaria-vermelho);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; transition: 0.3s; }
         body { background-color: var(--bg-color); color: var(--text-color); }
